@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.BookShelfMapper">
+
+    <resultMap type="BookShelf" id="BookShelfResult">
+        <result property="shelfId"    column="shelf_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="bookId"    column="book_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="name"    column="name"    />
+        <result property="author"    column="author"    />
+    </resultMap>
+
+    <sql id="selectBookShelfVo">
+        select shelf_id, user_id, book_id from book_shelf
+    </sql>
+
+    <select id="selectBookShelfList" parameterType="BookShelf" resultMap="BookShelfResult">
+        select bs.shelf_id, bs.user_id, bs.book_id ,su.user_name,ab.name,ab.author,ab.url
+        from book_shelf bs
+        left join sys_user su on bs.user_id = su.user_id
+        left join ancient_book ab on ab.book_id =  bs.book_id
+        <where>
+            <if test="userId != null "> and bs.user_id = #{userId}</if>
+            <if test="bookId != null "> and bs.book_id = #{bookId}</if>
+        </where>
+    </select>
+
+    <select id="selectBookShelfByShelfId" parameterType="Long" resultMap="BookShelfResult">
+        <include refid="selectBookShelfVo"/>
+        where shelf_id = #{shelfId}
+    </select>
+
+    <insert id="insertBookShelf" parameterType="BookShelf" useGeneratedKeys="true" keyProperty="shelfId">
+        insert into book_shelf
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="bookId != null">book_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="bookId != null">#{bookId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBookShelf" parameterType="BookShelf">
+        update book_shelf
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="bookId != null">book_id = #{bookId},</if>
+        </trim>
+        where shelf_id = #{shelfId}
+    </update>
+
+    <delete id="deleteBookShelfByShelfId" parameterType="Long">
+        delete from book_shelf where shelf_id = #{shelfId}
+    </delete>
+
+    <delete id="deleteBookShelfByShelfIds" parameterType="String">
+        delete from book_shelf where shelf_id in
+        <foreach item="shelfId" collection="array" open="(" separator="," close=")">
+            #{shelfId}
+        </foreach>
+    </delete>
+</mapper>

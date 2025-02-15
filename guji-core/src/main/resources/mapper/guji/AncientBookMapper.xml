@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.AncientBookMapper">
+    
+    <resultMap type="AncientBook" id="AncientBookResult">
+        <result property="bookId"    column="book_id"    />
+        <result property="type"    column="type"    />
+        <result property="author"    column="author"    />
+        <result property="name"    column="name"    />
+        <result property="url"    column="url"    />
+        <result property="introduce"    column="introduce"    />
+    </resultMap>
+
+    <sql id="selectAncientBookVo">
+        select book_id, type, author,name,url,introduce from ancient_book
+    </sql>
+
+    <select id="selectAncientBookList" parameterType="AncientBook" resultMap="AncientBookResult">
+        <include refid="selectAncientBookVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="name != null  and name != ''"> and name  like CONCAT('%', #{name}, '%') </if>
+        </where>
+    </select>
+    
+    <select id="selectAncientBookByBookId" parameterType="Long" resultMap="AncientBookResult">
+        <include refid="selectAncientBookVo"/>
+        where book_id = #{bookId}
+    </select>
+
+    <insert id="insertAncientBook" parameterType="AncientBook">
+        insert into ancient_book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">book_id,</if>
+            <if test="type != null">type,</if>
+            <if test="author != null">author,</if>
+            <if test="name != null">name,</if>
+            <if test="url != null">url,</if>
+            <if test="introduce != null">introduce,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">#{bookId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="author != null">#{author},</if>
+            <if test="name != null">#{name},</if>
+            <if test="url != null">#{url},</if>
+            <if test="introduce != null">#{introduce},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAncientBook" parameterType="AncientBook">
+        update ancient_book
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="introduce != null">introduce = #{introduce},</if>
+        </trim>
+        where book_id = #{bookId}
+    </update>
+
+    <delete id="deleteAncientBookByBookId" parameterType="Long">
+        delete from ancient_book where book_id = #{bookId}
+    </delete>
+
+    <delete id="deleteAncientBookByBookIds" parameterType="String">
+        delete from ancient_book where book_id in 
+        <foreach item="bookId" collection="array" open="(" separator="," close=")">
+            #{bookId}
+        </foreach>
+    </delete>
+</mapper>

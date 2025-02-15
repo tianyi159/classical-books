@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.BookChapterMapper">
+
+    <resultMap type="BookChapter" id="BookChapterResult">
+        <result property="chapterId"    column="chapter_id"    />
+        <result property="bookId"    column="book_id"    />
+        <result property="chapterName"    column="chapter_name"    />
+        <result property="name"    column="name"    />
+    </resultMap>
+
+    <sql id="selectBookChapterVo">
+        select chapter_id, book_id, chapter_name from book_chapter
+    </sql>
+
+    <select id="selectBookChapterList" parameterType="BookChapter" resultMap="BookChapterResult">
+        select bc.chapter_id, bc.book_id, bc.chapter_name,ab.name
+        from book_chapter bc
+        left join ancient_book ab on ab.book_id  = bc.book_id
+        <where>
+            <if test="bookId != null">bc.book_id = #{bookId}</if>
+            <if test="chapterName != null  and chapterName != ''"> and bc.chapter_name like concat('%', #{chapterName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectBookChapterByChapterId" parameterType="Long" resultMap="BookChapterResult">
+        select bc.chapter_id, bc.book_id, bc.chapter_name,ab.name
+        from book_chapter bc
+        left join ancient_book ab on ab.book_id  = bc.book_id
+        where chapter_id = #{chapterId}
+    </select>
+
+    <insert id="insertBookChapter" parameterType="BookChapter" useGeneratedKeys="true" keyProperty="chapterId">
+        insert into book_chapter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">book_id,</if>
+            <if test="chapterName != null and chapterName != ''">chapter_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">#{bookId},</if>
+            <if test="chapterName != null and chapterName != ''">#{chapterName},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBookChapter" parameterType="BookChapter">
+        update book_chapter
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bookId != null">book_id = #{bookId},</if>
+            <if test="chapterName != null and chapterName != ''">chapter_name = #{chapterName},</if>
+        </trim>
+        where chapter_id = #{chapterId}
+    </update>
+
+    <delete id="deleteBookChapterByChapterId" parameterType="Long">
+        delete from book_chapter where chapter_id = #{chapterId}
+    </delete>
+
+    <delete id="deleteBookChapterByChapterIds" parameterType="String">
+        delete from book_chapter where chapter_id in
+        <foreach item="chapterId" collection="array" open="(" separator="," close=")">
+            #{chapterId}
+        </foreach>
+    </delete>
+</mapper>

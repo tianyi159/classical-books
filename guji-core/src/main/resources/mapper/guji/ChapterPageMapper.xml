@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.ChapterPageMapper">
+
+    <resultMap type="ChapterPage" id="ChapterPageResult">
+        <result property="pageId"    column="page_id"    />
+        <result property="chapterId"    column="chapter_id"    />
+        <result property="content"    column="content"    />
+        <result property="chapterName"    column="chapter_name"    />
+    </resultMap>
+
+    <sql id="selectChapterPageVo">
+        select page_id, chapter_id, content from chapter_page
+    </sql>
+
+    <select id="selectChapterPageList" parameterType="ChapterPage" resultMap="ChapterPageResult">
+        select cp.page_id, cp.chapter_id, cp.content, bc.chapter_name
+        from chapter_page cp
+        left join  book_chapter bc on cp.chapter_id = bc.chapter_id
+        <where>
+            <if test="chapterId != null "> and cp.chapter_id = #{chapterId}</if>
+            <if test="content != null  and content != ''"> and cp.content = #{content}</if>
+        </where>
+    </select>
+
+    <select id="selectChapterPageByPageId" parameterType="Long" resultMap="ChapterPageResult">
+        <include refid="selectChapterPageVo"/>
+        where page_id = #{pageId}
+    </select>
+
+    <insert id="insertChapterPage" parameterType="ChapterPage">
+        insert into chapter_page
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pageId != null">page_id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="content != null and content != ''">content,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pageId != null">#{pageId},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="content != null and content != ''">#{content},</if>
+        </trim>
+    </insert>
+
+    <update id="updateChapterPage" parameterType="ChapterPage">
+        update chapter_page
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chapterId != null">chapter_id = #{chapterId},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+        </trim>
+        where page_id = #{pageId}
+    </update>
+
+    <delete id="deleteChapterPageByPageId" parameterType="Long">
+        delete from chapter_page where page_id = #{pageId}
+    </delete>
+
+    <delete id="deleteChapterPageByPageIds" parameterType="String">
+        delete from chapter_page where page_id in
+        <foreach item="pageId" collection="array" open="(" separator="," close=")">
+            #{pageId}
+        </foreach>
+    </delete>
+</mapper>
