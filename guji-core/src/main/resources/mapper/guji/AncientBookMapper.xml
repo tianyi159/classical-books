@@ -7,6 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="AncientBook" id="AncientBookResult">
         <result property="bookId"    column="book_id"    />
         <result property="type"    column="type"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="categoryName"    column="category_name"    />
         <result property="author"    column="author"    />
         <result property="name"    column="name"    />
         <result property="url"    column="url"    />
@@ -14,13 +16,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAncientBookVo">
-        select book_id, type, author,name,url,introduce from ancient_book
+        select book_id, ancient_book.type, author,ancient_book.category_id,name,url,introduce,category_name from ancient_book
+        left join ancient_books_category on ancient_book.category_id = ancient_books_category.category_id
     </sql>
 
     <select id="selectAncientBookList" parameterType="AncientBook" resultMap="AncientBookResult">
         <include refid="selectAncientBookVo"/>
         <where>  
-            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="type != null  and type != ''"> and ancient_book.type = #{type}</if>
             <if test="author != null  and author != ''"> and author = #{author}</if>
             <if test="name != null  and name != ''"> and name  like CONCAT('%', #{name}, '%') </if>
         </where>
@@ -37,6 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bookId != null">book_id,</if>
             <if test="type != null">type,</if>
             <if test="author != null">author,</if>
+            <if test="categoryId != null">category_id,</if>
             <if test="name != null">name,</if>
             <if test="url != null">url,</if>
             <if test="introduce != null">introduce,</if>
@@ -45,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bookId != null">#{bookId},</if>
             <if test="type != null">#{type},</if>
             <if test="author != null">#{author},</if>
+            <if test="categoryId != null">#{categoryId},</if>
             <if test="name != null">#{name},</if>
             <if test="url != null">#{url},</if>
             <if test="introduce != null">#{introduce},</if>
@@ -57,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="type != null">type = #{type},</if>
             <if test="author != null">author = #{author},</if>
             <if test="name != null">name = #{name},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
             <if test="url != null">url = #{url},</if>
             <if test="introduce != null">introduce = #{introduce},</if>
         </trim>

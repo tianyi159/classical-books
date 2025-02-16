@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.AncientBookRecordMapper">
+    
+    <resultMap type="AncientBookRecord" id="AncientBookRecordResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="ancientBookId"    column="ancient_book_id"    />
+        <result property="ancientBookName"    column="ancient_book_name"    />
+        <result property="chapterId"    column="chapter_id"    />
+        <result property="chapterName"    column="chapter_name"    />
+        <result property="lastUpdated"    column="last_updated"    />
+    </resultMap>
+
+    <sql id="selectAncientBookRecordVo">
+        select record_id, ancient_book_record.user_id, ancient_book_id,sys_user.user_name,  ancient_book_record.chapter_id, last_updated,chapter_name,ancient_book.name ancient_book_name from ancient_book_record
+        left join sys_user on ancient_book_record.user_id = sys_user.user_id
+        left join ancient_book on ancient_book_record.ancient_book_id = ancient_book.book_id
+        left join book_chapter on ancient_book_record.chapter_id = book_chapter.chapter_id
+    </sql>
+
+    <select id="selectAncientBookRecordList" parameterType="AncientBookRecord" resultMap="AncientBookRecordResult">
+        <include refid="selectAncientBookRecordVo"/>
+        <where>  
+            <if test="userId != null "> and ancient_book_record.user_id = #{userId}</if>
+            <if test="ancientBookId != null "> and ancient_book_id = #{ancientBookId}</if>
+            <if test="chapterId != null "> and ancient_book_record.chapter_id = #{chapterId}</if>
+        </where>
+    </select>
+    
+    <select id="selectAncientBookRecordByRecordId" parameterType="Long" resultMap="AncientBookRecordResult">
+        <include refid="selectAncientBookRecordVo"/>
+        where record_id = #{recordId}
+    </select>
+    <select id="selectAncientBookBookmarksByUserIdAndAncientBookId" resultMap="AncientBookRecordResult">
+        <include refid="selectAncientBookRecordVo"/>
+        where ancient_book_record.user_id = #{userId} and ancient_book_id = #{ancientBookId}
+    </select>
+
+    <insert id="insertAncientBookRecord" parameterType="AncientBookRecord" useGeneratedKeys="true" keyProperty="recordId">
+        insert into ancient_book_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="ancientBookId != null">ancient_book_id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="lastUpdated != null">last_updated,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="ancientBookId != null">#{ancientBookId},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="lastUpdated != null">#{lastUpdated},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAncientBookRecord" parameterType="AncientBookRecord">
+        update ancient_book_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id =  #{userId},</if>
+            <if test="ancientBookId != null">ancient_book_id =  #{ancientBookId},</if>
+            <if test="chapterId != null">chapter_id =  #{chapterId},</if>
+            <if test="lastUpdated != null">last_updated =  #{lastUpdated},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteAncientBookRecordByRecordId" parameterType="Long">
+        delete from ancient_book_record where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteAncientBookRecordByRecordIds" parameterType="String">
+        delete from ancient_book_record where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.AncientBookBookmarksMapper">
+    
+    <resultMap type="AncientBookBookmarks" id="AncientBookBookmarksResult">
+        <result property="bookmarkId"    column="bookmark_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="ancientBookId"    column="ancient_book_id"    />
+        <result property="ancientBookName"    column="ancient_book_name"    />
+        <result property="chapterId"    column="chapter_id"    />
+        <result property="chapterName"    column="chapter_name"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="yAddress"    column="y_address"    />
+    </resultMap>
+
+    <sql id="selectAncientBookBookmarksVo">
+        select bookmark_id, ancient_book_bookmarks.user_id,sys_user.user_name, ancient_book_id, ancient_book_bookmarks.chapter_id, ancient_book_bookmarks.created_at, y_address,chapter_name,ancient_book.name ancient_book_name from ancient_book_bookmarks
+        left join sys_user on ancient_book_bookmarks.user_id = sys_user.user_id
+        left join ancient_book on ancient_book_bookmarks.ancient_book_id = ancient_book.book_id
+        left join book_chapter on ancient_book_bookmarks.chapter_id = book_chapter.chapter_id
+    </sql>
+
+    <select id="selectAncientBookBookmarksList" parameterType="AncientBookBookmarks" resultMap="AncientBookBookmarksResult">
+        <include refid="selectAncientBookBookmarksVo"/>
+        <where>  
+            <if test="userId != null "> and ancient_book_bookmarks.user_id = #{userId}</if>
+            <if test="ancientBookId != null "> and ancient_book_id = #{ancientBookId}</if>
+            <if test="chapterId != null "> and ancient_book_bookmarks.chapter_id = #{chapterId}</if>
+            <if test="createdAt != null "> and ancient_book_bookmarks.created_at = #{createdAt}</if>
+            <if test="yAddress != null  and yAddress != ''"> and y_address = #{yAddress}</if>
+        </where>
+    </select>
+    
+    <select id="selectAncientBookBookmarksByBookmarkId" parameterType="Long" resultMap="AncientBookBookmarksResult">
+        <include refid="selectAncientBookBookmarksVo"/>
+        where bookmark_id = #{bookmarkId}
+    </select>
+
+    <insert id="insertAncientBookBookmarks" parameterType="AncientBookBookmarks" useGeneratedKeys="true" keyProperty="bookmarkId">
+        insert into ancient_book_bookmarks
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="ancientBookId != null">ancient_book_id,</if>
+            <if test="chapterId != null">chapter_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="yAddress != null and yAddress != ''">y_address,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="ancientBookId != null">#{ancientBookId},</if>
+            <if test="chapterId != null">#{chapterId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="yAddress != null and yAddress != ''">#{yAddress},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAncientBookBookmarks" parameterType="AncientBookBookmarks">
+        update ancient_book_bookmarks
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="ancientBookId != null">ancient_book_id = #{ancientBookId},</if>
+            <if test="chapterId != null">chapter_id = #{chapterId},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="yAddress != null and yAddress != ''">y_address = #{yAddress},</if>
+        </trim>
+        where bookmark_id = #{bookmarkId}
+    </update>
+
+    <delete id="deleteAncientBookBookmarksByBookmarkId" parameterType="Long">
+        delete from ancient_book_bookmarks where bookmark_id = #{bookmarkId}
+    </delete>
+
+    <delete id="deleteAncientBookBookmarksByBookmarkIds" parameterType="String">
+        delete from ancient_book_bookmarks where bookmark_id in 
+        <foreach item="bookmarkId" collection="array" open="(" separator="," close=")">
+            #{bookmarkId}
+        </foreach>
+    </delete>
+</mapper>

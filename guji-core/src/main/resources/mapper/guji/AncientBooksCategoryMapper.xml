@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.AncientBooksCategoryMapper">
+    
+    <resultMap type="AncientBooksCategory" id="AncientBooksCategoryResult">
+        <result property="categoryId"    column="category_id"    />
+        <result property="categoryName"    column="category_name"    />
+        <result property="type"    column="type"    />
+    </resultMap>
+
+    <sql id="selectAncientBooksCategoryVo">
+        select category_id, category_name, type from ancient_books_category
+    </sql>
+
+    <select id="selectAncientBooksCategoryList" parameterType="AncientBooksCategory" resultMap="AncientBooksCategoryResult">
+        <include refid="selectAncientBooksCategoryVo"/>
+        <where>  
+            <if test="categoryName != null  and categoryName != ''"> and category_name like concat('%', #{categoryName}, '%')</if>
+            <if test="type != null "> and type = #{type}</if>
+        </where>
+    </select>
+    
+    <select id="selectAncientBooksCategoryByCategoryId" parameterType="Long" resultMap="AncientBooksCategoryResult">
+        <include refid="selectAncientBooksCategoryVo"/>
+        where category_id = #{categoryId}
+    </select>
+
+    <insert id="insertAncientBooksCategory" parameterType="AncientBooksCategory" useGeneratedKeys="true" keyProperty="categoryId">
+        insert into ancient_books_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryName != null and categoryName != ''">category_name,</if>
+            <if test="type != null">type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryName != null and categoryName != ''">#{categoryName},</if>
+            <if test="type != null">#{type},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAncientBooksCategory" parameterType="AncientBooksCategory">
+        update ancient_books_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="categoryName != null and categoryName != ''">category_name = #{categoryName},</if>
+            <if test="type != null">type = #{type},</if>
+        </trim>
+        where category_id = #{categoryId}
+    </update>
+
+    <delete id="deleteAncientBooksCategoryByCategoryId" parameterType="Long">
+        delete from ancient_books_category where category_id = #{categoryId}
+    </delete>
+
+    <delete id="deleteAncientBooksCategoryByCategoryIds" parameterType="String">
+        delete from ancient_books_category where category_id in 
+        <foreach item="categoryId" collection="array" open="(" separator="," close=")">
+            #{categoryId}
+        </foreach>
+    </delete>
+</mapper>

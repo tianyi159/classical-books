@@ -2,12 +2,22 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="类型" prop="type">
-        <el-select v-model="queryParams.type" placeholder="请选择类型" clearable>
+        <el-select v-model="queryParams.type" placeholder="请选择类型" clearable @change="handleTypeChange">
           <el-option
             v-for="dict in dict.type.book_type"
             :key="dict.value"
             :label="dict.label"
-            :value="dict.value"
+            :value="parseInt(dict.value)"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="分类" prop="categoryId">
+        <el-select v-model="queryParams.categoryId" placeholder="请选择分类" clearable>
+          <el-option
+            v-for="category in categories"
+            :key="category.categoryId"
+            :label="category.categoryName"
+            :value="parseInt(category.categoryId)"
           />
         </el-select>
       </el-form-item>
@@ -70,7 +80,6 @@
     <el-table v-loading="loading" :data="bookList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="书名" align="center" prop="name" />
-
       <el-table-column align="center" label="封面" >
         <template slot-scope="scope">
           <el-image
@@ -82,6 +91,8 @@
         <template slot-scope="scope">
           <dict-tag :options="dict.type.book_type" :value="scope.row.type"/>
         </template>
+      </el-table-column>
+      <el-table-column label="分类" align="center" prop="categoryName"> 
       </el-table-column>
       <el-table-column label="作者" align="center" prop="author" />
       <el-table-column label="简介" align="center" prop="introduce" />
@@ -119,13 +130,23 @@
         </el-form-item>
 
         <el-form-item label="类型" prop="type">
-          <el-select v-model="form.type" placeholder="请选择类型">
+          <el-select v-model="form.type" placeholder="请选择类型" @change="handleFormTypeChange">
             <el-option
               v-for="dict in dict.type.book_type"
               :key="dict.value"
               :label="dict.label"
-              :value="dict.value"
+              :value="parseInt(dict.value)"
             ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="分类" prop="categoryId">
+          <el-select v-model="form.categoryId" placeholder="请选择分类">
+            <el-option
+              v-for="category in formCategories"
+              :key="category.categoryId"
+              :label="category.categoryName"
+              :value="parseInt(category.categoryId)"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="作者" prop="author">
@@ -148,7 +169,8 @@
 </template>
 
 <script>
-  import { listBook, getBook, delBook, addBook, updateBook} from "@/api/guji/book";
+  import { listBook, getBook, delBook, addBook, updateBook } from "@/api/guji/book";
+  import { listCategory } from "@/api/guji/category";
 
   export default {
     name: "Book",
@@ -196,7 +218,9 @@
           introduce:[
             { required: true, message: "简介不能为空", trigger: "blur" }
           ]
-        }
+        },
+        categories: [],
+        formCategories: []
       };
     },
     created() {
@@ -256,6 +280,7 @@
           this.form = response.data;
           this.open = true;
           this.title = "修改古籍";
+          this.getCategories(this.form.type, false); // 修改: 调用getCategories方法获取分类
         });
       },
       /** 提交按钮 */
@@ -293,6 +318,24 @@
         this.download('guji/book/export', {
           ...this.queryParams
         }, `book_${new Date().getTime()}.xlsx`)
+      },
+      handleTypeChange() {
+        this.queryParams.categoryId = null;
+        this.getCategories(this.queryParams.type,true); // 修改: 调用getCategories方法获取分类
+      },
+      handleFormTypeChange() {
+        this.form.categoryId = null;
+        this.getCategories(this.form.type,false); // 修改: 调用getCategories方法获取分类
+      },
+      
+      getCategories(type,status) {
+        listCategory({ type }).then(response => {
+          if(status){
+            this.categories = response.rows;
+          }else{
+            this.formCategories = response.rows;
+          }
+        });
       }
     }
   };
