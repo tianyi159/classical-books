@@ -77,6 +77,7 @@ public class AncientBookBookmarksController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody AncientBookBookmarks ancientBookBookmarks)
     {
+        ancientBookBookmarks.setUserId(getUserId());
         return toAjax(ancientBookBookmarksService.insertAncientBookBookmarks(ancientBookBookmarks));
     }
 
