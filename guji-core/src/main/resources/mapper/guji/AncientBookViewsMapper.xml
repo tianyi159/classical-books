@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guji.book.mapper.AncientBookViewsMapper">
+    
+    <resultMap type="AncientBookViews" id="AncientBookViewsResult">
+        <result property="id"    column="id"    />
+        <result property="ancientBookId"    column="ancient_book_id"    />
+        <result property="ancientBookName"    column="ancient_book_name"    />
+        <result property="views"    column="views"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAncientBookViewsVo">
+        select id, ancient_book_id, views, update_time,name ancient_book_name from ancient_book_views
+        left join ancient_book on ancient_book_views.ancient_book_id = ancient_book.book_id
+    </sql>
+
+    <select id="selectAncientBookViewsList" parameterType="AncientBookViews" resultMap="AncientBookViewsResult">
+        <include refid="selectAncientBookViewsVo"/>
+        <where>  
+            <if test="ancientBookId != null "> and ancient_book_id = #{ancientBookId}</if>
+            <if test="views != null "> and views = #{views}</if>
+        </where>
+    </select>
+
+    <select id="selectAncientBookViewsDesc" parameterType="AncientBookViews" resultMap="AncientBookViewsResult">
+        <include refid="selectAncientBookViewsVo"/>
+        order by views desc limit 6
+    </select>
+    
+    <select id="selectAncientBookViewsById" parameterType="Long" resultMap="AncientBookViewsResult">
+        <include refid="selectAncientBookViewsVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectAncientBookViewsByAncientBookId" parameterType="Long" resultMap="AncientBookViewsResult">
+        <include refid="selectAncientBookViewsVo"/>
+        where ancient_book_id = #{ancientBookId}
+    </select>
+    <insert id="insertAncientBookViews" parameterType="AncientBookViews" useGeneratedKeys="true" keyProperty="id">
+        insert into ancient_book_views
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ancientBookId != null">ancient_book_id,</if>
+            <if test="views != null">views,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ancientBookId != null">#{ancientBookId},</if>
+            <if test="views != null">#{views},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAncientBookViews" parameterType="AncientBookViews">
+        update ancient_book_views
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ancientBookId != null">ancient_book_id = #{ancientBookId},</if>
+            <if test="views != null">views = #{views},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAncientBookViewsById" parameterType="Long">
+        delete from ancient_book_views where id = #{id}
+    </delete>
+
+    <delete id="deleteAncientBookViewsByIds" parameterType="String">
+        delete from ancient_book_views where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

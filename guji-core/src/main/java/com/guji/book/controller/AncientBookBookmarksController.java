@@ -46,6 +46,16 @@ public class AncientBookBookmarksController extends BaseController
         return getDataTable(list);
     }
 
+    @GetMapping("/myMarks")
+    public AjaxResult myMarks(AncientBookBookmarks ancientBookBookmarks)
+    {
+        if(ancientBookBookmarks.getAncientBookId()==null){
+            return error("参数错误");
+        }
+        ancientBookBookmarks.setUserId(getUserId());
+        List<AncientBookBookmarks> result = ancientBookBookmarksService.selectAncientBookBookmarksList(ancientBookBookmarks);
+        return success(result);
+    }
     /**
      * 导出书签列表
      */

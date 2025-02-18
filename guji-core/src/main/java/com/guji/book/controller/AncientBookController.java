@@ -2,6 +2,9 @@ package com.guji.book.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.guji.book.domain.AncientBookViews;
+import com.guji.book.service.IAncientBookViewsService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,8 @@ public class AncientBookController extends BaseController
 {
     @Autowired
     private IAncientBookService ancientBookService;
+    @Autowired
+    private IAncientBookViewsService ancientBookViewsService;
 
     /**
      * 查询古籍列表
@@ -73,6 +78,9 @@ public class AncientBookController extends BaseController
     @GetMapping(value = "/{bookId}")
     public AjaxResult getInfo(@PathVariable("bookId") Long bookId)
     {
+        AncientBookViews ancientBookViews = new AncientBookViews();
+        ancientBookViews.setAncientBookId(bookId);
+        ancientBookViewsService.controllerViews(ancientBookViews);
         return success(ancientBookService.selectAncientBookByBookId(bookId));
     }
 
