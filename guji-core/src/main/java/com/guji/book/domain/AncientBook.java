@@ -30,6 +30,7 @@ public class AncientBook extends BaseEntity
     /** 类型 */
     @Excel(name = "类型")
     private Integer type;
+    private String typeName;
 
     private Integer categoryId;
     private String categoryName;

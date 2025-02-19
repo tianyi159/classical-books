@@ -22,6 +22,24 @@ public class AncientBookViews extends BaseEntity
     @Excel(name = "古籍编号")
     private Long ancientBookId;
     private String ancientBookName;
+    private String ancientBookUrl;
+    private String author;
+
+    public String getAncientBookUrl() {
+        return ancientBookUrl;
+    }
+
+    public void setAncientBookUrl(String ancientBookUrl) {
+        this.ancientBookUrl = ancientBookUrl;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getAncientBookName() {
         return ancientBookName;

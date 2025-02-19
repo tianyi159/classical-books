@@ -25,6 +25,7 @@ public class AncientPoem extends BaseEntity
     /** 朝代 */
     @Excel(name = "朝代")
     private String dynasty;
+    private String dynastyName;
 
     /** 作者 */
     @Excel(name = "作者")
@@ -37,10 +38,36 @@ public class AncientPoem extends BaseEntity
     /** 分类 */
     @Excel(name = "分类")
     private String category;
+    private String categoryName;
 
     /** 合集 */
     @Excel(name = "合集")
     private String list;
+    private String listName;
+
+    public String getDynastyName() {
+        return dynastyName;
+    }
+
+    public void setDynastyName(String dynastyName) {
+        this.dynastyName = dynastyName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
 
     /** 名称 */
     @Excel(name = "名称")

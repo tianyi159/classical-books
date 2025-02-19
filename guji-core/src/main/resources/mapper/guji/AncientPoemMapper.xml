@@ -8,15 +8,25 @@
         <result property="ariId"    column="ari_id"    />
         <result property="content"    column="content"    />
         <result property="dynasty"    column="dynasty"    />
+        <result property="dynastyName"    column="dynasty_name"    />
         <result property="author"    column="author"    />
         <result property="introduce"    column="introduce"    />
         <result property="category"    column="category"    />
+        <result property="categoryName"    column="category_name"    />
         <result property="list"    column="list"    />
+        <result property="listName"    column="list_name"    />
         <result property="name"    column="name"    />
     </resultMap>
 
     <sql id="selectAncientPoemVo">
-        select ari_id, content, dynasty, author, introduce, category, list, name from ancient_poem
+        select ari_id, content, dynasty, author, introduce, category, list, name ,s1.dict_label as list_name,
+               s2.dict_label as category_name, s3.dict_label as dynasty_name
+        from ancient_poem
+        left join sys_dict_data s1 on s1.dict_value = ancient_poem.list and s1.dict_type='poem_type'
+        left join sys_dict_data s2 on s2.dict_value = ancient_poem.category and s2.dict_type='poem_category'
+        left join sys_dict_data s3 on s3.dict_value = ancient_poem.dynasty and s3.dict_type='poem_dynasty'
+
+
     </sql>
 
     <select id="selectAncientPoemList" parameterType="AncientPoem" resultMap="AncientPoemResult">

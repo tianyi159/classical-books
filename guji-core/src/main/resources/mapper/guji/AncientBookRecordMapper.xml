@@ -8,18 +8,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="recordId"    column="record_id"    />
         <result property="userId"    column="user_id"    />
         <result property="userName"    column="user_name"    />
+        <result property="type"    column="type"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="categoryName"    column="category_name"    />
         <result property="ancientBookId"    column="ancient_book_id"    />
         <result property="ancientBookName"    column="ancient_book_name"    />
+        <result property="ancientBookUrl"    column="ancient_book_url"    />
+        <result property="author"    column="author"    />
         <result property="chapterId"    column="chapter_id"    />
         <result property="chapterName"    column="chapter_name"    />
         <result property="lastUpdated"    column="last_updated"    />
     </resultMap>
 
     <sql id="selectAncientBookRecordVo">
-        select record_id, ancient_book_record.user_id, ancient_book_id,sys_user.user_name,  ancient_book_record.chapter_id, last_updated,chapter_name,ancient_book.name ancient_book_name from ancient_book_record
+        select record_id, ancient_book_record.user_id, ancient_book_id,sys_user.user_name,url ancient_book_url,author ,  ancient_book_record.chapter_id, last_updated,chapter_name,ancient_book.name ancient_book_name
+        ,category_name,dict_label as type_name,ancient_book.type,ancient_books_category.category_id
+        from ancient_book_record
         left join sys_user on ancient_book_record.user_id = sys_user.user_id
         left join ancient_book on ancient_book_record.ancient_book_id = ancient_book.book_id
         left join book_chapter on ancient_book_record.chapter_id = book_chapter.chapter_id
+        left join ancient_books_category on ancient_book.category_id = ancient_books_category.category_id
+        left join sys_dict_type on sys_dict_type.dict_type = 'book_type'
+        left join sys_dict_data on sys_dict_data.dict_value = ancient_book.type and sys_dict_type.dict_type = sys_dict_data.dict_type
+
     </sql>
 
     <select id="selectAncientBookRecordList" parameterType="AncientBookRecord" resultMap="AncientBookRecordResult">

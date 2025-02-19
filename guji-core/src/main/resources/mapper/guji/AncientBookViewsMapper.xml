@@ -8,12 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="id"    column="id"    />
         <result property="ancientBookId"    column="ancient_book_id"    />
         <result property="ancientBookName"    column="ancient_book_name"    />
+        <result property="ancientBookUrl"    column="ancient_book_url"    />
+        <result property="author"    column="author"    />
         <result property="views"    column="views"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
     <sql id="selectAncientBookViewsVo">
-        select id, ancient_book_id, views, update_time,name ancient_book_name from ancient_book_views
+        select id, ancient_book_id, views, update_time,name ancient_book_name,url ancient_book_url,author from ancient_book_views
         left join ancient_book on ancient_book_views.ancient_book_id = ancient_book.book_id
     </sql>
 

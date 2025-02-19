@@ -29,6 +29,63 @@ public class AncientBookRecord extends BaseEntity
     @Excel(name = "古籍ID")
     private Long ancientBookId;
     private String ancientBookName;
+    private String ancientBookUrl;
+    private String author;
+
+    @Excel(name = "类型")
+    private Integer type;
+    private String typeName;
+    private Integer categoryId;
+
+    private String categoryName;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getAncientBookUrl() {
+        return ancientBookUrl;
+    }
+
+    public void setAncientBookUrl(String ancientBookUrl) {
+        this.ancientBookUrl = ancientBookUrl;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     /** 当前章节ID */
     @Excel(name = "当前章节ID")
