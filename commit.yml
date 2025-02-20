@@ -3,63 +3,33 @@ branches: {
   }
 fileChange:
   /guji-core:
-    newFile: !uuid '0df8cba4da53f7066b8ce5ab13e5921d8da2d5fc'
-    oldFile: !uuid 'f1b61d057b233acbdd87b20973d4678c4a5f3dcd'
+    newFile: !uuid '2de3f5a62149b07169aa9f6e0087bfa11f548498'
+    oldFile: !uuid '0df8cba4da53f7066b8ce5ab13e5921d8da2d5fc'
   /guji-core/src:
-    newFile: !uuid 'fad98f52cbacd671ef43dc9247e715d3e532f040'
-    oldFile: !uuid '47821baaecf5fcf7da63a2f6de56205383ba21ba'
+    newFile: !uuid '1e09ba78d7a2fb417902fee39e751353bccdb1a1'
+    oldFile: !uuid 'fad98f52cbacd671ef43dc9247e715d3e532f040'
   /guji-core/src/main:
-    newFile: !uuid '5bd404d34d8206c44e4500718505120966f2f5e3'
-    oldFile: !uuid 'c8c893de3c51e9006c735b09ecdeec158b444e2e'
+    newFile: !uuid 'cdcc8630023e2e620339725eed7cef75685db191'
+    oldFile: !uuid '5bd404d34d8206c44e4500718505120966f2f5e3'
   /guji-core/src/main/java:
-    newFile: !uuid '1203a6f056149d58521c30a5a441d5f6c8249a0d'
-    oldFile: !uuid 'b8a5021be755c18a2d0bcf1a59a64273e7ee5ec7'
+    newFile: !uuid '0e92d56fe003a64c57261481f4cecfeccda1168e'
+    oldFile: !uuid '1203a6f056149d58521c30a5a441d5f6c8249a0d'
   /guji-core/src/main/java/com:
-    newFile: !uuid 'c0a82f0197fabb0c00297101ab19a85ce31b11b8'
-    oldFile: !uuid '5c043e0c632ab2f3a47586342596c96ee45425b6'
+    newFile: !uuid '0edbf6c15cac60ecedec8c7336331723079d4320'
+    oldFile: !uuid 'c0a82f0197fabb0c00297101ab19a85ce31b11b8'
   /guji-core/src/main/java/com/guji:
-    newFile: !uuid 'fd000c0ee35942895caac28cd84c96e8b7c8d9a2'
-    oldFile: !uuid '2257677b9c28b6ee389da0a6f7d4a6a4a86e3432'
+    newFile: !uuid '6b6c2809ad5e2fe680817002b718dcf59e88ab05'
+    oldFile: !uuid 'fd000c0ee35942895caac28cd84c96e8b7c8d9a2'
   /guji-core/src/main/java/com/guji/book:
-    newFile: !uuid 'c75a62e3861c8e6f433d2cad32b190538a101e84'
-    oldFile: !uuid '2b446d074306d0251ff8c070ffff3bac79a623ec'
-  /guji-core/src/main/java/com/guji/book/domain:
-    newFile: !uuid 'ea11165f51da41563bbb9740e4d11b7acae6b846'
-    oldFile: !uuid '60855f6fa3ffb9e3e3e4c0cd154c46570a1a8784'
-  /guji-core/src/main/java/com/guji/book/domain/AncientBook.java:
-    newFile: !uuid 'b28a258e64b1a27dbec4f5f2b1a6c84bc9cf54e7'
-    oldFile: !uuid '71ccf4bf6af52061f96bf44bf589421734a3ae06'
-  /guji-core/src/main/java/com/guji/book/domain/AncientBookRecord.java:
-    newFile: !uuid '3d7d6e6a67db3b6debaebb6b37b3eb2240b2b936'
-    oldFile: !uuid '1b4bd843b7306ddcb30c944871be5a58fb7e3d24'
-  /guji-core/src/main/java/com/guji/book/domain/AncientBookViews.java:
-    newFile: !uuid '694a297202c690d10ef0c9ced795c732213a0121'
-    oldFile: !uuid '22bf20234b8e4525037139724f839a6d7671ac7f'
-  /guji-core/src/main/java/com/guji/book/domain/AncientPoem.java:
-    newFile: !uuid '375b598362c2cc6bf8b3b85a5fd68e604dff0aea'
-    oldFile: !uuid 'c6c4119469e9d29f6ee893622df5920d0bb605ae'
-  /guji-core/src/main/resources:
-    newFile: !uuid '19f35a6fd1b7b3099ac4f15638043cb3ba889153'
-    oldFile: !uuid '9c7a786224c749d4528552d889f2cbf832e22d82'
-  /guji-core/src/main/resources/mapper:
-    newFile: !uuid 'bb50381f085a55755694864332f9992cdd023014'
-    oldFile: !uuid '630959b9d103bb060a273a9620d17c701cd8fd51'
-  /guji-core/src/main/resources/mapper/guji:
-    newFile: !uuid '9592a6151ad8e74509ecfa847f278853d8f1b0e2'
-    oldFile: !uuid '40ecfad581d6ac86ec76b305ac2001d43c0e2b8b'
-  /guji-core/src/main/resources/mapper/guji/AncientBookMapper.xml:
-    newFile: !uuid '94196986a67b4605ee25c01e58d1f2a96b4d2410'
-    oldFile: !uuid 'a4daae52aa86956852200335ad4f21a94188b356'
-  /guji-core/src/main/resources/mapper/guji/AncientBookRecordMapper.xml:
-    newFile: !uuid '8966ff3f3982cae2efaedefc58e843722107f0d1'
-    oldFile: !uuid 'b023351101b99edca94e11190b39397fce05fc5e'
-  /guji-core/src/main/resources/mapper/guji/AncientBookViewsMapper.xml:
-    newFile: !uuid '1518382302ce76d5d4fa134bf3e079f4bb286c79'
-    oldFile: !uuid 'b950c8afb4cb630575d597a96b06ef5d9e4ce853'
-  /guji-core/src/main/resources/mapper/guji/AncientPoemMapper.xml:
-    newFile: !uuid 'ebebc51833ca095c02f09ce66d5794e62587dc21'
-    oldFile: !uuid '759abdae3c5354a4c141bad87fe9f117c8fc0e9d'
-gitCommitId: !uuid '8fb48633e7f5e48dd317da628a9d0872bdd6f4a3'
+    newFile: !uuid 'ec05efdb19c01215f5b6d776b361279fde54dd2e'
+    oldFile: !uuid 'c75a62e3861c8e6f433d2cad32b190538a101e84'
+  /guji-core/src/main/java/com/guji/book/controller:
+    newFile: !uuid 'e162fd7b2db972e55780e42ee76312fd90067888'
+    oldFile: !uuid 'f0b1911ded8563bcee389063e2003f1b7912823f'
+  /guji-core/src/main/java/com/guji/book/controller/AncientBookRecordController.java:
+    newFile: !uuid '1949663f562ad4f44c8cf11e528c31e851e38a99'
+    oldFile: !uuid '9c35d63a222b00a1e088be370f76dc85d8ac8a7d'
+gitCommitId: !uuid 'd831bb56e8323e228a3a524674c3ce2d0b1db6c7'
 renames: {
   }
-revisionId: 6
+revisionId: 7
