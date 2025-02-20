@@ -53,8 +53,17 @@ public class AncientBookRecordController extends BaseController
     {
         return success(ancientBookRecordService.selectAncientBookRecordByRecordId(recordId));
     }
+    @GetMapping(value = "/myRecord")
+    public TableDataInfo getInfo()
+    {
+        startPage();
+        AncientBookRecord ancientBookRecord=new AncientBookRecord();
+        ancientBookRecord.setUserId(SecurityUtils.getUserId());
+        List<AncientBookRecord> list = ancientBookRecordService.selectAncientBookRecordList(ancientBookRecord);
+        return getDataTable(list);
+    }
 
-//    添加阅读记录，如果有了，就更新
+    //    添加阅读记录，如果有了，就更新
     @PostMapping(value = "/views")
     public AjaxResult insRecord(@RequestBody AncientBookRecord record)
     {
