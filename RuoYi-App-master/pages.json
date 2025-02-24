@@ -161,8 +161,8 @@
       },
       {
         "pagePath": "pages/ph",
-        "iconPath": "static/images/tabbar/ph.png",
-        "selectedIconPath": "static/images/tabbar/ph_.png",
+        "iconPath": "static/images/tabbar/fenLei.png",
+        "selectedIconPath": "static/images/tabbar/fenLei (1).png",
         "text": "排行"
       },
       {

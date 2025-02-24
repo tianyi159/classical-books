@@ -7,7 +7,7 @@
     }"
   >
     <!-- 添加导航栏 -->
-    <view class="nav-bar">
+    <view class="nav-bar" style="margin-top: 60rpx;">
       <view class="left" @click="goBack">
         <u-icon name="arrow-left" size="32" color="#fff"></u-icon>
       </view>
@@ -132,12 +132,15 @@
           <view class="adjust-section">
             <view class="adjust-item">
               <text>亮度</text>
-              <u-slider
-                v-model="brightness"
-                :min="20"
-                :max="100"
+              <slider
+                :value="brightness"
                 @change="changeBrightness"
-              ></u-slider>
+                @changing="changeBrightness"
+                min="0"
+                max="100"
+                show-value
+                block-size="20"
+              ></slider>
             </view>
             <view class="adjust-item">
               <text>字号</text>
@@ -192,7 +195,7 @@ export default {
       currentScrollY: 0,
       chapterTitle: "", // 添加章节标题
       showSettingPopup: false,
-      brightness: 100,
+      brightness: 50,
       fontSize: 32,
       currentTheme: "default",
       themes: [
@@ -274,10 +277,26 @@ export default {
     closeSettings() {
       this.showSettingPopup = false;
     },
-    changeBrightness(value) {
-      // 调整屏幕亮度
+    changeBrightness(e) {
+      const value = typeof e === 'object' ? e.detail.value : e;
+      this.brightness = value;
+      // 将百分比转换为 0-1 之间的值
+      const brightnessValue = value / 100;
+      
+      // 设置屏幕亮度
       uni.setScreenBrightness({
-        value: value / 100,
+        value: brightnessValue,
+        success: () => {
+          // 保存亮度设置到本地存储
+          uni.setStorageSync('reader-brightness', value);
+        },
+        fail: (err) => {
+          console.error('设置屏幕亮度失败：', err);
+          uni.showToast({
+            title: '设置亮度失败',
+            icon: 'none'
+          });
+        }
       });
     },
     changeFontSize(value) {
@@ -397,6 +416,21 @@ export default {
           backgroundColor: theme.bg,
         });
       }
+    }
+
+    // 获取保存的亮度设置
+    const savedBrightness = uni.getStorageSync('reader-brightness');
+    if (savedBrightness !== '') {
+      this.brightness = savedBrightness;
+      this.changeBrightness(savedBrightness);
+    } else {
+      // 获取当前系统亮度
+      uni.getScreenBrightness({
+        success: (res) => {
+          const value = Math.round(res.value * 100);
+          this.brightness = value;
+        }
+      });
     }
   },
 };

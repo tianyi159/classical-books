@@ -18,10 +18,7 @@
     </view>
 
     <view class="content">
-      <u-parse
-        :content="content"
-        :style="{ fontSize: fontSize + 'rpx' }"
-      ></u-parse>
+      <view :style="{ fontSize: fontSize + 'rpx' }" v-html="content"> </view>
     </view>
 
     <view class="fotter">
@@ -267,10 +264,10 @@ export default {
   },
   onLoad: function (e) {
     //根据id查询指定的
-    console.log(e.chapterId,e.bookId, "eeeeeeeeeeeeeeee");
-    listChapters({bookId:e.bookId}).then((res) => {
+    console.log(e.chapterId, e.bookId, "eeeeeeeeeeeeeeee");
+    listChapters({ bookId: e.bookId }).then((res) => {
       this.chapter = res.data;
-      console.log(res,'ssssdasdsadasdasd');
+      console.log(res, "ssssdasdsadasdasd");
     });
     let obj = {
       chapterId: Number(e.chapterId),

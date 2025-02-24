@@ -38,22 +38,20 @@
         </view>
       </view>
     </view>
-    <u-tabs
-      :list="list1"
-      @click="click"
-      :activeStyle="{
-        color: '#303133',
-        fontWeight: 'bold',
-        transform: 'scale(1.05)',
-      }"
-      lineColor="#f56c6c"
-      lineWidth="60"
-      :inactiveStyle="{
-        color: '#606266',
-        transform: 'scale(1)',
-      }"
-      itemStyle="padding-left: 30px; padding-right: 15px; height: 34px; text-align: center;"
-    ></u-tabs>
+    <view class="custom-tabs">
+      <view class="tabs-header">
+        <view 
+          v-for="(item, idx) in list1" 
+          :key="idx"
+          class="tab-item"
+          :class="{ active: index === idx }"
+          @click="click({index: idx})"
+        >
+          {{ item.name }}
+          <view v-if="index === idx" class="active-line"></view>
+        </view>
+      </view>
+    </view>
     <view v-if="index === 0">
       <u--text style="padding: 10px" :text="detail.introduce"></u--text>
       <!--      {{detail.introduce}}-->
@@ -441,11 +439,46 @@ export default {
   }
 }
 
-// 美化标签页样式
-:deep(.u-tabs) {
-  background-color: #fff;
+.custom-tabs {
+  background: #fff;
   margin-bottom: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  .tabs-header {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    
+    .tab-item {
+      position: relative;
+      padding: 12px 20px;
+      font-size: 14px;
+      color: #606266;
+      text-align: center;
+      transition: all 0.3s;
+      
+      &.active {
+        color: #303133;
+        font-weight: bold;
+        transform: scale(1.05);
+        
+        .active-line {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 30px;
+          height: 2px;
+          background: #f56c6c;
+          border-radius: 2px;
+        }
+      }
+      
+      &:active {
+        opacity: 0.7;
+      }
+    }
+  }
 }
 
 // 美化简介内容
