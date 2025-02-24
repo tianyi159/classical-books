@@ -3,57 +3,24 @@ branches: {
   }
 fileChange:
   /RuoYi-App-master:
-    newFile: !uuid 'af3950892f195e88f903f2f9811b3cc75d11b5bb'
-    oldFile: !uuid '4e04ab8284819f1b4d5990bc65fafdaa8adec7af'
-  /RuoYi-App-master/config.js:
-    newFile: !uuid '39f01e3c1cc854f16574a24e162e6c8f2c9af685'
-    oldFile: !uuid '0a91d0e124a1edf59bac6a48eccc8632cbdb9a76'
-  /RuoYi-App-master/pages:
-    newFile: !uuid 'df8e0988bcbc0c632a33ff40d359de9e1a227951'
-    oldFile: !uuid 'ef1138c6746c2fc346bb5cc8adbbf27e7f8de864'
-  /RuoYi-App-master/pages/index.vue:
-    newFile: !uuid '233adb98af9c79871084e458326045fed77c0890'
-    oldFile: !uuid '16dbc9c324d628d8621e08c09772467e831df52b'
-  /guji-core:
-    newFile: !uuid '59e70df0fc4d019d215f41e6671576716ac341e9'
-    oldFile: !uuid '2de3f5a62149b07169aa9f6e0087bfa11f548498'
-  /guji-core/src:
-    newFile: !uuid '2a012e39931b97c2a70aafca5a7cde1b67e40140'
-    oldFile: !uuid '1e09ba78d7a2fb417902fee39e751353bccdb1a1'
-  /guji-core/src/main:
-    newFile: !uuid '52f8811d699847e858ae1167ae0d327a0486a578'
-    oldFile: !uuid 'cdcc8630023e2e620339725eed7cef75685db191'
-  /guji-core/src/main/resources:
-    newFile: !uuid '656ed2401d0b00309126463a0f09ca8f36d5578c'
-    oldFile: !uuid '19f35a6fd1b7b3099ac4f15638043cb3ba889153'
-  /guji-core/src/main/resources/mapper:
-    newFile: !uuid '0878e47c250a6b28c7ffd72d83b4f3e8d6362741'
-    oldFile: !uuid 'bb50381f085a55755694864332f9992cdd023014'
-  /guji-core/src/main/resources/mapper/guji:
-    newFile: !uuid 'dde2f5f64c03451ce178577cd8ee1e7624194f18'
-    oldFile: !uuid '9592a6151ad8e74509ecfa847f278853d8f1b0e2'
-  /guji-core/src/main/resources/mapper/guji/AncientBookMapper.xml:
-    newFile: !uuid '6ea86e0bb06ee882aa3dd2d3079aca18bd7dc845'
-    oldFile: !uuid '94196986a67b4605ee25c01e58d1f2a96b4d2410'
-  /guji-ui:
-    newFile: !uuid '4fc79ebce0c016eb79e82b2b499d622614c93501'
-    oldFile: !uuid '7125482a9dcab55f151e106a7af314fa790c97f5'
-  /guji-ui/src:
-    newFile: !uuid '0fa0ae8b7e2faa0611b7b1a7587130319e91bd49'
-    oldFile: !uuid 'a876ba422764d993f411fbd6fc83703655910f44'
-  /guji-ui/src/views:
-    newFile: !uuid '495b8b5679ec4a4ee9a8f31281f9f2de9a389c87'
-    oldFile: !uuid 'd9d41e49174677a68f80b4948e9219aa3bd59753'
-  /guji-ui/src/views/guji:
-    newFile: !uuid '4860a8bbb600c21b02365943911e86ad76d98c56'
-    oldFile: !uuid '6e657bcfde14b3e1303da7de35e14afeabe9f52f'
-  /guji-ui/src/views/guji/poem:
-    newFile: !uuid 'cf03e7f9efd5e0422178d695618597fbaa71230d'
-    oldFile: !uuid '8742fb8fa8e2a2610ecce06c4f5279abaf73f75d'
-  /guji-ui/src/views/guji/poem/index.vue:
-    newFile: !uuid '02686b2e8fcca8907ae7e504ca5e9ec6afcbc0d6'
-    oldFile: !uuid '0644f3e013066ee31b2cc4719783f32f3e0056e2'
-gitCommitId: !uuid '0cc7d413c1d28773199e5cb34b924432fc3227df'
+    newFile: !uuid 'ac52c7951b013d32b69fb8a0f6eec60dd463e3d9'
+    oldFile: !uuid 'af3950892f195e88f903f2f9811b3cc75d11b5bb'
+  /RuoYi-App-master/static:
+    newFile: !uuid '5778c1fc1f3effd7c2fb48a60d8a21861b539873'
+    oldFile: !uuid 'dca35568d3947f7ebfd9d0498921c5d34d41ec63'
+  /RuoYi-App-master/static/images:
+    newFile: !uuid 'dcd36d71d4cebcc7d0d59f58a7a77ae0f49a0487'
+    oldFile: !uuid '3a8982c2fb0debc48ded4ba4fed869334cc7deaa'
+  /RuoYi-App-master/static/images/tabbar:
+    newFile: !uuid 'a762cca1c9a6a04a58fd0012f67cc11a6de45d73'
+    oldFile: !uuid 'd9a42331a7c8daa7dab31d8cb5919cd5c84cf976'
+  /RuoYi-App-master/static/images/tabbar/fenLei (1).png:
+    newFile: !uuid 'af044fc3d852ec1d8339647fd5627c1386ad162f'
+    oldFile: null
+  /RuoYi-App-master/static/images/tabbar/fenLei.png:
+    newFile: !uuid '83c0cb580455b5dc40c2bfcc1a9f7bd7246bc21f'
+    oldFile: null
+gitCommitId: !uuid '1aa5d6639fa33c88462528f15542c6d3196a0ae7'
 renames: {
   }
-revisionId: 9
+revisionId: 10
