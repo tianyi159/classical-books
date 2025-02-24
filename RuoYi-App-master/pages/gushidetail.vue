@@ -1,106 +1,147 @@
 <template>
-<view  >
-    <view  @click="jumpGushiDetail(item)" class="box" :key="item.ariId"  v-for="item in list" style="border-radius: 5px;background-color: #fffefe;margin-top: 20px;min-height: 80px;">
-      <view class="tit">
-        {{item.name}}
+  <view class="container">
+    <view
+      v-for="item in list"
+      :key="item.ariId"
+      @click="jumpGushiDetail(item)"
+      class="poem-card"
+    >
+      <view class="poem-header">
+        <view class="poem-title">{{ item.name }}</view>
+        <view class="poem-meta">
+          <text class="author">{{ item.author }}</text>
+          <text class="dynasty">{{ item.dynastyName }}</text>
+        </view>
       </view>
-      <view class="top">
-    <span style="padding-left:5px;font-size: 12px;font-weight: 700;">
-      {{item.author}}
-    </span>
-        <span style="margin-left: 10px;color: silver;font-size: 5px">
-      {{item.dynasty}}
-    </span>
-      </view>
-      <u--text size="12" style="border-top: 1px solid #9d9393;padding: 10px;" :lines="3" :text="item.introduce">
-      </u--text>
+      <u--text
+        class="poem-intro"
+        size="14"
+        :lines="3"
+        :text="item.introduce"
+      />
     </view>
-</view>
+  </view>
 </template>
 <script>
-import { dictType,ancientPoemList} from '@/api/guji/guji'
+import { dictType, ancientPoemList } from "@/api/guji/guji";
 export default {
   name: "gushidetail",
-  data(){
-    return{
-      list:[]
+  data() {
+    return {
+      list: [],
+    };
+  },
+  methods: {
+    jumpGushiDetail(item) {
+      this.$tab.navigateTo(`/pages/gushicontent?ariId=${item.ariId}`);
+      console.log(item, "sadsdasdasasdsa");
+    },
+  },
+  onLoad(e) {
+    console.log(e, "ssssssssssssssss");
+    if (e.author != undefined) {
+      let obj = {
+        author: e.author,
+      };
+      ancientPoemList(obj).then((res) => {
+        this.list = res.data;
+        console.log(this.list, "listlist");
+        console.log(res, "jkjkk");
+      });
+    } else if (e.type != undefined) {
+      let obj = {
+        list: e.type,
+      };
+      ancientPoemList(obj).then((res) => {
+        this.list = res.data;
+        console.log(res, "jkjkk");
+      });
+      console.log(e.type);
+    } else if (e.dynasty != undefined) {
+      let obj = {
+        dynasty: e.dynasty,
+      };
+      ancientPoemList(obj).then((res) => {
+        this.list = res.data;
+        console.log(res, "jkjkk");
+      });
+      console.log(e.dynasty);
+    } else if (e.category != undefined) {
+      let obj = {
+        category: e.category,
+      };
+      ancientPoemList(obj).then((res) => {
+        this.list = res.data;
+        console.log(res, "jkjkk");
+      });
+    } else {
+      let obj = {
+        name: e.name,
+      };
+      ancientPoemList(obj).then((res) => {
+        this.list = res.data;
+        console.log(res, "jkjkk");
+      });
     }
   },
-  methods:{
-    jumpGushiDetail(item){
-      this.$tab.navigateTo(`/pages/gushicontent?ariId=${item.ariId}`)
-      console.log(item,'sadsdasdasasdsa')
-    }
-  },
-  onLoad(e){
-    console.log(e,'ssssssssssssssss')
-    if(e.author!=undefined){
-      let obj = {
-        author:e.author
-      }
-      ancientPoemList(obj).then(res=>{
-        this.list = res.data
-        console.log(this.list,'listlist')
-        console.log(res,'jkjkk')
-      })
-    }else if(e.type!=undefined){
-      let obj = {
-        list:e.type
-      }
-      ancientPoemList(obj).then(res=>{
-        this.list = res.data
-        console.log(res,'jkjkk')
-      })
-      console.log(e.type)
-    }else if(e.dynasty!=undefined){
-      let obj = {
-        dynasty:e.dynasty
-      }
-      ancientPoemList(obj).then(res=>{
-        this.list = res.data
-        console.log(res,'jkjkk')
-      })
-      console.log(e.dynasty)
-    }else if(e.category!=undefined) {
-      let obj = {
-        category:e.category
-      }
-      ancientPoemList(obj).then(res=>{
-        this.list = res.data
-        console.log(res,'jkjkk')
-      })
-    }else{
-      let obj = {
-        name:e.name
-      }
-      ancientPoemList(obj).then(res=>{
-        this.list = res.data
-        console.log(res,'jkjkk')
-      })
-    }
-
-  }
-
-}
+};
 </script>
 <style scoped lang="scss">
-page{
-  background-color: #dcc2c2;
+page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
 }
-.box{
-  background-color: #ffffff;
-  border-radius: 5px;
-  width: 95vw;
-  margin: 5px auto;
-  .top{
-    padding-bottom: 5px;
-  }
-  .tit{
-    text-align: right;
-    font-weight: 700;
-    padding-right: 5px;
-    padding-top: 5px;
-  }
 
+.container {
+  padding: 20rpx;
+}
+
+.poem-card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.poem-header {
+  margin-bottom: 16rpx;
+}
+
+.poem-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 12rpx;
+}
+
+.poem-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  
+  .author {
+    font-size: 28rpx;
+    color: #666666;
+    font-weight: 500;
+  }
+  
+  .dynasty {
+    font-size: 24rpx;
+    color: #999999;
+  }
+}
+
+.poem-intro {
+  padding-top: 16rpx;
+  border-top: 1px solid #eee;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #666666;
 }
 </style>

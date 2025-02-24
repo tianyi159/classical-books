@@ -46,6 +46,12 @@
       </view>
 
       <view class="menu-list">
+        <view class="list-cell list-cell-arrow" @click="toOrder">
+          <view class="menu-item-box">
+            <view class="iconfont icon-user menu-icon"></view>
+            <view>阅读记录</view>
+          </view>
+        </view>
         <view class="list-cell list-cell-arrow" @click="handleToEditInfo">
           <view class="menu-item-box">
             <view class="iconfont icon-user menu-icon"></view>
@@ -77,122 +83,170 @@
 </template>
 
 <script>
-  import storage from '@/utils/storage'
+import storage from "@/utils/storage";
 
-  export default {
-    data() {
-      return {
-        name: this.$store.state.user.name,
-        version: getApp().globalData.config.appInfo.version
-      }
+export default {
+  data() {
+    return {
+      name: this.$store.state.user.name,
+      version: getApp().globalData.config.appInfo.version,
+    };
+  },
+  computed: {
+    avatar() {
+      return this.$store.state.user.avatar;
     },
-    computed: {
-      avatar() {
-        return this.$store.state.user.avatar
-      },
-      windowHeight() {
-        return uni.getSystemInfoSync().windowHeight - 50
-      }
+    windowHeight() {
+      return uni.getSystemInfoSync().windowHeight - 50;
     },
-    methods: {
-      handleToInfo() {
-        this.$tab.navigateTo('/pages/mine/info/index')
-      },
-      handleToEditInfo() {
-        this.$tab.navigateTo('/pages/mine/info/edit')
-      },
-      handleToSetting() {
-        this.$tab.navigateTo('/pages/mine/setting/index')
-      },
-      handleToLogin() {
-        this.$tab.reLaunch('/pages/login')
-      },
-      handleToAvatar() {
-        this.$tab.navigateTo('/pages/mine/avatar/index')
-      },
-      handleLogout() {
-        this.$modal.confirm('确定注销并退出系统吗？').then(() => {
-          this.$store.dispatch('LogOut').then(() => {
-            this.$tab.reLaunch('/pages/index')
-          })
-        })
-      },
-      handleHelp() {
-        this.$tab.navigateTo('/pages/mine/help/index')
-      },
-      handleAbout() {
-        this.$tab.navigateTo('/pages/mine/about/index')
-      },
-      handleJiaoLiuQun() {
-        this.$modal.showToast('QQ群：①133713780、②146013835')
-      },
-      handleBuilding() {
-        this.$modal.showToast('模块建设中~')
-      }
-    }
-  }
+  },
+  methods: {
+    toOrder() {
+      uni.navigateTo({
+        url: "/pages/mine/order/order",
+      });
+    },
+    handleToInfo() {
+      this.$tab.navigateTo("/pages/mine/info/index");
+    },
+    handleToEditInfo() {
+      this.$tab.navigateTo("/pages/mine/info/edit");
+    },
+    handleToSetting() {
+      this.$tab.navigateTo("/pages/mine/setting/index");
+    },
+    handleToLogin() {
+      this.$tab.reLaunch("/pages/login");
+    },
+    handleToAvatar() {
+      this.$tab.navigateTo("/pages/mine/avatar/index");
+    },
+    handleLogout() {
+      this.$modal.confirm("确定注销并退出系统吗？").then(() => {
+        this.$store.dispatch("LogOut").then(() => {
+          this.$tab.reLaunch("/pages/index");
+        });
+      });
+    },
+    handleHelp() {
+      this.$tab.navigateTo("/pages/mine/help/index");
+    },
+    handleAbout() {
+      this.$tab.navigateTo("/pages/mine/about/index");
+    },
+    handleJiaoLiuQun() {
+      this.$modal.showToast("QQ群：①133713780、②146013835");
+    },
+    handleBuilding() {
+      this.$modal.showToast("模块建设中~");
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-  page {
-    background-color: #f5f6f7;
-  }
+page {
+  background-color: #f8f9fa;
+}
 
-  .mine-container {
-    width: 100%;
-    height: 100%;
+.mine-container {
+  width: 100%;
+  height: 100%;
 
+  .header-section {
+    padding: 25px 15px 65px 15px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-    .header-section {
-      padding: 15px 15px 45px 15px;
-      background-color: #3c96f3;
-      color: white;
-
-      .login-tip {
-        font-size: 18px;
-        margin-left: 10px;
-      }
-
-      .cu-avatar {
-        border: 2px solid #eaeaea;
-
-        .icon {
-          font-size: 40px;
-        }
-      }
-
-      .user-info {
-        margin-left: 15px;
-
-        .u_title {
-          font-size: 18px;
-          line-height: 30px;
-        }
-      }
-    }
-
-    .content-section {
+    .login-tip {
+      font-size: 18px;
+      margin-left: 15px;
+      font-weight: 500;
       position: relative;
-      top: -50px;
 
-      .mine-actions {
-        margin: 15px 15px;
-        padding: 20px 0px;
-        border-radius: 8px;
-        background-color: white;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+    }
 
-        .action-item {
-          .icon {
-            font-size: 28px;
-          }
+    .cu-avatar {
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-          .text {
-            display: block;
-            font-size: 13px;
-            margin: 8px 0px;
+      &:active {
+        transform: scale(0.95);
+      }
+
+      .icon {
+        font-size: 40px;
+      }
+    }
+
+    .user-info {
+      margin-left: 20px;
+
+      .u_title {
+        font-size: 18px;
+        line-height: 30px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .content-section {
+    position: relative;
+    top: -50px;
+    padding: 0 15px;
+
+    .menu-list {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+
+      .list-cell {
+        padding: 16px;
+        position: relative;
+        transition: all 0.3s ease;
+
+        &:active {
+          background-color: #f5f5f5;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 16px;
+          right: 16px;
+          bottom: 0;
+          height: 1px;
+          background-color: #f0f0f0;
+        }
+
+        &:last-child::after {
+          display: none;
+        }
+
+        .menu-item-box {
+          display: flex;
+          align-items: center;
+
+          .menu-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            color: #4facfe;
           }
         }
       }
     }
   }
+}
 </style>

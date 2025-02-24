@@ -18,25 +18,16 @@
     </view>
 
     <view class="content">
-      <scroll-view
-        :scroll-top="scrollY"
-        @scroll="scroll"
-        scroll-y
-        class="content-scroll"
-        scroll-with-animation
-        style="height: 80vh"
-      >
-        <u-parse
-          :content="content"
-          :style="{ fontSize: fontSize + 'rpx' }"
-        ></u-parse>
-      </scroll-view>
+      <u-parse
+        :content="content"
+        :style="{ fontSize: fontSize + 'rpx' }"
+      ></u-parse>
     </view>
 
     <view class="fotter">
-      <view @click="prop" class="prev-page">上一章</view>
+      <view @click="prop" class="prev-page">上一页</view>
       <view class="spacer"></view>
-      <view @click="next" class="next-page">下一章</view>
+      <view @click="next" class="next-page">下一页</view>
     </view>
 
     <!-- 添加设置弹出框 -->
@@ -51,7 +42,7 @@
         <view class="function-row">
           <view class="function-item" @click="prop">
             <u-icon name="arrow-left" size="30"></u-icon>
-            <text>上一章</text>
+            <text>上一篇</text>
           </view>
           <view class="function-item" @click="toggleChapterList">
             <u-icon
@@ -69,7 +60,7 @@
           </view>
           <view class="function-item" @click="next">
             <u-icon name="arrow-right" size="30"></u-icon>
-            <text>下一章</text>
+            <text>下一篇</text>
           </view>
         </view>
 
@@ -78,13 +69,13 @@
           <view class="chapter-list">
             <scroll-view scroll-y class="chapter-scroll">
               <view
-                v-for="(item, idx) in chapterList"
+                v-for="(item, idx) in contentList"
                 :key="idx"
                 class="chapter-item"
                 :class="{ active: index === idx }"
                 @click="jumpToChapter(idx)"
               >
-                <text>{{ item.name }} · {{ item.chapterName }}</text>
+                <text>{{ item.title || `第${idx + 1}章` }}</text>
               </view>
             </scroll-view>
           </view>
@@ -96,7 +87,6 @@
             <u-button @click="addMarks">添加书签</u-button>
             <scroll-view scroll-y class="chapter-scroll">
               <view
-                @click="toPosition(bookmark)"
                 v-for="(bookmark, idx) in bookmarkList"
                 :key="idx"
                 class="chapter-item bookmark-item"
@@ -105,21 +95,12 @@
                   class="bookmark-content"
                   @click="jumpToBookmark(bookmark)"
                 >
-                  <text class="bookmark-title"
-                    >{{ bookmark.ancientBookName }} -
-                    {{ bookmark.chapterName }}</text
-                  >
+                  <text>{{ bookmark.title }}</text>
                   <text class="bookmark-time">{{
-                    new Date(bookmark.createdAt).toLocaleString()
+                    new Date(bookmark.timestamp).toLocaleString()
                   }}</text>
-                  <text class="bookmark-time"
-                    >位置:{{ bookmark.yAddress }}
-                  </text>
                 </view>
-                <view
-                  class="bookmark-delete"
-                  @click.stop="removeBookmark(bookmark.bookmarkId)"
-                >
+                <view class="bookmark-delete" @click.stop="removeBookmark(idx)">
                   <u-icon name="trash" size="24" color="#999"></u-icon>
                 </view>
               </view>
@@ -172,24 +153,16 @@
 
 <script>
 import { listPages, ancientPoem, listChapters } from "@/api/guji/guji";
-import {
-  addBookmarks,
-  listBookmarks,
-  myMarks,
-  delBookmarks,
-} from "@/api/guji/bookmarks";
-import { addRecord, views } from "@/api/guji/record";
+import { addBookmarks } from "@/api/guji/bookmarks";
+
 export default {
   data() {
     return {
-      scrollY: 0,
       content: `
 					<p>露从今夜白，月是故乡明</p>
 				`,
       contentList: [],
-      chapterList: [],
       index: 0,
-      currentScrollY: 0,
       chapterTitle: "", // 添加章节标题
       showSettingPopup: false,
       brightness: 100,
@@ -215,51 +188,25 @@ export default {
     },
   },
   methods: {
-    scroll(e) {
-      this.currentScrollY = e.detail.scrollTop;
-    },
-    toPosition(bookmark) {
-      // 切换章节
-      this.toggerInit(bookmark.chapterId, bookmark.yAddress);
-    },
-    async toggerInit(chapterId, yAddress) {
-      const res = await listPages({ chapterId: chapterId });
-      this.content = "";
-      res.data.forEach((item) => {
-        this.content += item.content;
-      });
-      this.chapterTitle = res.data[0].chapterName || "阅读"; // 设置章节标题
-      this.showSettingPopup = false;
-      setTimeout(() => {
-        this.scrollY = yAddress;
-      }, 100);
-    },
     addMarks() {
       addBookmarks({
-        ancientBookId: this.bookId,
-        chapterId: this.chapterList[this.index].chapterId,
-        yAddress: this.currentScrollY,
+        ancientBookId,
       }).then((res) => {
-        // 提示
-        uni.showToast({
-          title: "添加书签成功",
-          icon: "success",
-        });
-        this.initMyMark();
+        console.log(res, "resresresres");
       });
     },
     prop() {
       if (this.index > 0) {
         this.index--;
-        this.jumpToChapter(this.index);
+        this.content = this.contentList[this.index].content;
       } else {
         console.log("aaaaaaa");
       }
     },
     next() {
-      if (this.index < this < this.chapterList.length - 1) {
+      if (this.index < this.contentList.length - 1) {
         this.index++;
-        this.jumpToChapter(this.index);
+        this.content = this.contentList[this.index].content;
       } else {
         console.log("bbbbbbbbbbb");
       }
@@ -300,87 +247,41 @@ export default {
     },
     jumpToChapter(idx) {
       this.index = idx;
-      listPages({ chapterId: this.chapterList[idx].chapterId }).then((res) => {
-        this.content = "";
-        res.data.forEach((item) => {
-          this.content += item.content;
-        });
-        this.chapterTitle = res.data[0].chapterName || "阅读"; // 设置章节标题
-      });
+      this.content = this.contentList[idx].content;
+      this.chapterTitle = this.contentList[idx].title || "阅读";
       this.showSettingPopup = false;
     },
     addBookmark() {
       // 添加书签
-      this.initMyMark();
       this.showBookmarkListView = !this.showBookmarkListView;
       this.showChapterListView = false;
-    },
-    initMyMark() {
-      // 获取书签信息
-      myMarks({ ancientBookId: this.bookId }).then((res) => {
-        this.bookmarkList = res.data;
-      });
     },
     jumpToBookmark(bookmark) {
       // 实现跳转到书签所在章节的功能
       console.log("跳转到书签所在章节", bookmark);
     },
-    removeBookmark(id) {
-      // 确认删除
-      uni.showModal({
-        title: "提示",
-        content: "确定要删除这个书签吗？",
-        success: (res) => {
-          if (res.confirm) {
-            // 确认删除
-            delBookmarks(id).then((res) => {
-              // 提示
-              uni.showToast({
-                title: "删除成功",
-                icon: "success",
-              });
-              this.initMyMark();
-            });
-          }
-        },
-      });
+    removeBookmark(idx) {
+      // 实现移除书签的功能
+      console.log("移除书签", idx);
     },
   },
   onLoad: function (e) {
-    if (e.yAddress) {
-      this.toggerInit(e.chapterId, e.yAddress);
-      return;
-    }
     //根据id查询指定的
-    this.bookId = e.bookId;
-    console.log(e.chapterId, e.bookId, "eeeeeeeeeeeeeeee");
-    listChapters({ bookId: e.bookId }).then((res) => {
-      res.data.forEach((el, index) => {
-        console.log(el.chapterId == e.chapterId);
-        if (el.chapterId == e.chapterId) {
-          this.index = index;
-        }
-      });
-      this.chapterList = res.data;
-      console.log(res, "ssssdasdsadasdasd");
+    console.log(e.chapterId,e.bookId, "eeeeeeeeeeeeeeee");
+    listChapters({bookId:e.bookId}).then((res) => {
+      this.chapter = res.data;
+      console.log(res,'ssssdasdsadasdasd');
     });
     let obj = {
       chapterId: Number(e.chapterId),
     };
     listPages(obj).then((res) => {
       this.contentList = res.data;
-      this.content = "";
-      res.data.forEach((item) => {
-        this.content += item.content;
-      });
-      this.chapterTitle = res.data[0].chapterName || "阅读"; // 设置章节标题
+      this.content = res.data[0].content;
+      this.chapterTitle = res.data[0].title || "阅读"; // 设置章节标题
       console.log(res, "ddddddddddddddddddddd");
     });
-    // 添加阅读记录
-    views({
-      ancientBookId: Number(e.bookId),
-      chapterId: Number(e.chapterId),
-    }).then((res) => {});
+
     // 加载保存的设置
     const savedFontSize = uni.getStorageSync("reader-font-size");
     if (savedFontSize) {
@@ -711,13 +612,5 @@ page {
       }
     }
   }
-}
-
-.bookmark-title {
-  white-space: nowrap; // 防止文本换行
-  overflow: hidden; // 超出部分隐藏
-  text-overflow: ellipsis; // 超出显示省略号
-  display: block; // 或者 inline-block
-  width: 100%; // 设置宽度
 }
 </style>
