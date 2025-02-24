@@ -2,34 +2,100 @@
 branches: {
   }
 fileChange:
-  /guji-core:
-    newFile: !uuid '2de3f5a62149b07169aa9f6e0087bfa11f548498'
-    oldFile: !uuid '0df8cba4da53f7066b8ce5ab13e5921d8da2d5fc'
-  /guji-core/src:
-    newFile: !uuid '1e09ba78d7a2fb417902fee39e751353bccdb1a1'
-    oldFile: !uuid 'fad98f52cbacd671ef43dc9247e715d3e532f040'
-  /guji-core/src/main:
-    newFile: !uuid 'cdcc8630023e2e620339725eed7cef75685db191'
-    oldFile: !uuid '5bd404d34d8206c44e4500718505120966f2f5e3'
-  /guji-core/src/main/java:
-    newFile: !uuid '0e92d56fe003a64c57261481f4cecfeccda1168e'
-    oldFile: !uuid '1203a6f056149d58521c30a5a441d5f6c8249a0d'
-  /guji-core/src/main/java/com:
-    newFile: !uuid '0edbf6c15cac60ecedec8c7336331723079d4320'
-    oldFile: !uuid 'c0a82f0197fabb0c00297101ab19a85ce31b11b8'
-  /guji-core/src/main/java/com/guji:
-    newFile: !uuid '6b6c2809ad5e2fe680817002b718dcf59e88ab05'
-    oldFile: !uuid 'fd000c0ee35942895caac28cd84c96e8b7c8d9a2'
-  /guji-core/src/main/java/com/guji/book:
-    newFile: !uuid 'ec05efdb19c01215f5b6d776b361279fde54dd2e'
-    oldFile: !uuid 'c75a62e3861c8e6f433d2cad32b190538a101e84'
-  /guji-core/src/main/java/com/guji/book/controller:
-    newFile: !uuid 'e162fd7b2db972e55780e42ee76312fd90067888'
-    oldFile: !uuid 'f0b1911ded8563bcee389063e2003f1b7912823f'
-  /guji-core/src/main/java/com/guji/book/controller/AncientBookRecordController.java:
-    newFile: !uuid '1949663f562ad4f44c8cf11e528c31e851e38a99'
-    oldFile: !uuid '9c35d63a222b00a1e088be370f76dc85d8ac8a7d'
-gitCommitId: !uuid 'd831bb56e8323e228a3a524674c3ce2d0b1db6c7'
+  /RuoYi-App-master:
+    newFile: !uuid '4e04ab8284819f1b4d5990bc65fafdaa8adec7af'
+    oldFile: !uuid '02fff8ca9158a1b4e8cf197f51c817d21ddd6ae4'
+  /RuoYi-App-master/api:
+    newFile: !uuid '413d4713cce70e097965e25603045537b728fb7e'
+    oldFile: !uuid '3b7b3db8791a05a7e554aefb3585e83897fd6ec2'
+  /RuoYi-App-master/api/guji:
+    newFile: !uuid 'f6c423cbc37a13f7963d3995ba1a0588a5b7e7c5'
+    oldFile: !uuid 'bff3c97a6e71024660eddb3aaf3348493a89a426'
+  /RuoYi-App-master/api/guji/book.js:
+    newFile: !uuid '1ab62d1db5652f7ca77faec6239bbaa7fc59830f'
+    oldFile: null
+  /RuoYi-App-master/api/guji/bookmarks.js:
+    newFile: !uuid 'b9f68000e5f6f6585a0c63537c560aa57593bc32'
+    oldFile: null
+  /RuoYi-App-master/api/guji/category.js:
+    newFile: !uuid '165d234acc9448416c72f199b3aca0e8f89a566d'
+    oldFile: null
+  /RuoYi-App-master/api/guji/chapter.js:
+    newFile: !uuid 'b525c3af043dc25f201c47d9d0e451b9c52e0a32'
+    oldFile: null
+  /RuoYi-App-master/api/guji/page.js:
+    newFile: !uuid '7c07d4b72913ee5d45c002a99629baba23727ae2'
+    oldFile: null
+  /RuoYi-App-master/api/guji/poem.js:
+    newFile: !uuid 'd107eff415fdeb612f273c0adceef56bd883ac8e'
+    oldFile: null
+  /RuoYi-App-master/api/guji/record.js:
+    newFile: !uuid '91c1f6179a5efd31a2e545a35a469c20f696dcc4'
+    oldFile: null
+  /RuoYi-App-master/api/guji/shelf.js:
+    newFile: !uuid '6f2584093a43bcbbed8beb124c66071bd324660b'
+    oldFile: null
+  /RuoYi-App-master/api/guji/views.js:
+    newFile: !uuid '2868120da231251ace2f6c55da067a28603a389b'
+    oldFile: null
+  /RuoYi-App-master/config.js:
+    newFile: !uuid '0a91d0e124a1edf59bac6a48eccc8632cbdb9a76'
+    oldFile: !uuid 'e43c5d6c8c2387eb484b847f812eebcd8b86a511'
+  /RuoYi-App-master/pages:
+    newFile: !uuid 'ef1138c6746c2fc346bb5cc8adbbf27e7f8de864'
+    oldFile: !uuid 'eabf4a87a9e28c6f8a5319e34108a703a8e490fc'
+  /RuoYi-App-master/pages.json:
+    newFile: !uuid '0c1e367ed124b7c2b08c65a6da91845e5b1b914d'
+    oldFile: !uuid '0ac52ab78eb8863d4d6d3372da9cfa506923ea60'
+  /RuoYi-App-master/pages/bookdetail.vue:
+    newFile: !uuid 'ae82e5eb72802b9f4f88ac154203a36577a32ad0'
+    oldFile: !uuid '5b8c12335c80b3896e8d5e0560b9638060ee90ad'
+  /RuoYi-App-master/pages/gujicontent copy.vue:
+    newFile: !uuid '8fd47eef17258a8d1d4a74510671bb7143f7a68b'
+    oldFile: null
+  /RuoYi-App-master/pages/gujicontent.vue:
+    newFile: !uuid 'dfc2db4000d04a5a95ebc7c1de6b4a21f69ebc5c'
+    oldFile: !uuid 'e97aa955d89d5ba8272602e0ee9cf07a7a196d3c'
+  /RuoYi-App-master/pages/gushi:
+    newFile: !uuid 'df5cd3225921a5e3abe412393d0f5b5d81805019'
+    oldFile: !uuid '923128fe9d47be2b6a530ac793a64738b81d97fd'
+  /RuoYi-App-master/pages/gushi/index.vue:
+    newFile: !uuid '2abd832ef99b18af801cd3b47c1c3073a884f2ed'
+    oldFile: !uuid '04493fb0216b860d191f5f1d967e2edb806cdec4'
+  /RuoYi-App-master/pages/gushicontent.vue:
+    newFile: !uuid '89976af22bb5795ca79ff868365b6b2deb194d3d'
+    oldFile: !uuid '37c3ed8c9afe67dc62f35a3472c52ca538cd4888'
+  /RuoYi-App-master/pages/gushidetail.vue:
+    newFile: !uuid 'e41688dcfc9403d98eaa0eecfba4fd6aaf2d400b'
+    oldFile: !uuid '43836c890773f6acfef211ee2c0cb135cda40c52'
+  /RuoYi-App-master/pages/index.vue:
+    newFile: !uuid '16dbc9c324d628d8621e08c09772467e831df52b'
+    oldFile: !uuid 'f502ecd229254ce9c6707b1785ee8064bbde1e56'
+  /RuoYi-App-master/pages/mine:
+    newFile: !uuid 'dd41327455fd631b2f5dbfdc8c4422874f3f05f4'
+    oldFile: !uuid '02d11d0ee5559fa6a0b779a082b2e83c57ae1022'
+  /RuoYi-App-master/pages/mine/index.vue:
+    newFile: !uuid 'f744fb13270fa05450334d23655f5fbb8fc05de1'
+    oldFile: !uuid '7f7680d1482ed8fd6d49bb9022fb637ec6daeb56'
+  /RuoYi-App-master/pages/mine/order:
+    newFile: !uuid 'e18d73cf3dd0d09a450c30fefc2fcba66ef4b835'
+    oldFile: null
+  /RuoYi-App-master/pages/mine/order/order.vue:
+    newFile: !uuid '8da24b62f3c7f2a85d936a2e687344cbf9b2eeed'
+    oldFile: null
+  /RuoYi-App-master/pages/ph.vue:
+    newFile: !uuid '1906dee4c06e6b106ff5ff8a2bc08b3ebc035497'
+    oldFile: null
+  /RuoYi-App-master/pages/search.vue:
+    newFile: !uuid '94fa2c2bff54831135b276c293d1211b3db7dfbc'
+    oldFile: null
+  /RuoYi-App-master/pages/work:
+    newFile: !uuid '103a36bd57bafc98f171023c74e042bd6ec8b394'
+    oldFile: !uuid '64403b5bda57fd04a0b2f59d50ccc81d2090879d'
+  /RuoYi-App-master/pages/work/index.vue:
+    newFile: !uuid 'c242d497d3b762747f6916a15540b95c0d99001f'
+    oldFile: !uuid 'c44e233774060d6b6b33f437bc2bb7130f6f3e26'
+gitCommitId: !uuid '8d1c8cd16ee877339f639b38e1975dd45b59e96d'
 renames: {
   }
-revisionId: 7
+revisionId: 8
