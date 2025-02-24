@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="type != null  and type != ''"> and ancient_book.type = #{type}</if>
             <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="categoryId != null  and categoryId != ''"> and ancient_book.category_id = #{categoryId}</if>
             <if test="name != null  and name != ''"> and name  like CONCAT('%', #{name}, '%') </if>
         </where>
     </select>

@@ -50,10 +50,10 @@
             :class="
               currentIndex == index ? 'active category_item' : 'category_item '
             "
-            v-for="item in categoryList"
+            v-for="(item,index) in categoryList"
             :key="item.id"
             @click="listBooks(item.categoryId, index)"
-            >{{ item.categoryName }}</view
+            >{{ item.categoryName }}{{index}}</view
           >
         </view>
       </transition>
@@ -121,7 +121,7 @@ export default {
       this.getBookList(item.index + 1);
     },
     listBooks(id, index) {
-      listBooksApi({ categoryId: id, type: this.index + 1 }).then((res) => {
+      listBooksApi({ categoryId: id }).then((res) => {
         this.books = res.data;
         this.currentIndex = index;
       });

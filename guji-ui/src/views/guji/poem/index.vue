@@ -30,7 +30,7 @@
       <el-form-item label="分类" prop="category">
         <el-select v-model="queryParams.category" placeholder="请选择分类" clearable>
           <el-option
-            v-for="dict in dict.type.ponem_category"
+            v-for="dict in dict.type.poem_category"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -115,10 +115,7 @@
       </el-table-column>
       <el-table-column label="作者" align="center" prop="author" />
       <el-table-column label="简介" align="center" prop="introduce" />
-      <el-table-column label="分类" align="center" prop="category">
-        <template slot-scope="scope">
-          <dict-tag :options="dict.type.ponem_category" :value="scope.row.category"/>
-        </template>
+      <el-table-column label="分类" align="center" prop="categoryName"> 
       </el-table-column>
       <el-table-column label="合集" align="center" prop="list">
         <template slot-scope="scope">
@@ -177,7 +174,7 @@
         <el-form-item label="分类" prop="category">
           <el-select v-model="form.category" placeholder="请选择分类">
             <el-option
-              v-for="dict in dict.type.ponem_category"
+              v-for="dict in dict.type.poem_category"
               :key="dict.value"
               :label="dict.label"
               :value="dict.value"
@@ -210,7 +207,7 @@
   import { listPoem, getPoem, delPoem, addPoem, updatePoem } from "@/api/guji/poem";
   export default {
     name: "Poem",
-    dicts: ['ponem_category', 'poem_type', 'poem_dynasty'],
+    dicts: ['poem_category', 'poem_type', 'poem_dynasty'],
     data() {
       return {
         // 遮罩层
